@@ -9,7 +9,7 @@ class MovieCard extends React.Component {
       <div data-testid="movie-card">
         <p>{ title }</p>
         <p>{ storyline }</p>
-        <Link to={ `movies/${id}` }>VER DETALHES</Link>
+        <Link to={ `/movies/${id}` }>VER DETALHES</Link>
       </div>
     );
   }

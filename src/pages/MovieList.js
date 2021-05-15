@@ -10,7 +10,7 @@ class MovieList extends Component {
 
     this.state = {
       movies: [],
-      loaded: false,
+      isLoaded: false,
     };
   }
 
@@ -22,7 +22,7 @@ class MovieList extends Component {
   updateState = (response) => {
     this.setState({
       movies: response,
-      loaded: true,
+      isLoaded: true,
     });
   }
 
@@ -32,9 +32,9 @@ class MovieList extends Component {
   }
 
   render() {
-    const { movies, loaded } = this.state;
+    const { movies, isLoaded } = this.state;
 
-    if (!loaded) {
+    if (!isLoaded) {
       return <Loading />;
     }
 
