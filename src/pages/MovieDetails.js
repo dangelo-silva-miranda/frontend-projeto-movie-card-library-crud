@@ -11,7 +11,7 @@ class MovieDetails extends Component {
 
     this.state = {
       movie: {},
-      isLoaded: false,
+      status: 'loading',
       isMounted: false,
     };
   }
@@ -19,7 +19,7 @@ class MovieDetails extends Component {
   updateState = (response) => {
     this.setState({
       movie: response,
-      isLoaded: true,
+      status: '',
       isMounted: true,
     });
   }
@@ -29,7 +29,6 @@ class MovieDetails extends Component {
     if (!isMounted) {
       const { match: { params: { id } } } = this.props;
       const response = await movieAPI.getMovie(id);
-      // console.log(response);
       this.updateState(response);
     }
   }
@@ -37,7 +36,7 @@ class MovieDetails extends Component {
   componentWillUnmount = () => {
     this.setState({
       movie: {},
-      isLoaded: false,
+      status: 'loading',
       isMounted: false,
     });
   }
@@ -45,10 +44,10 @@ class MovieDetails extends Component {
   render() {
     const {
       movie: { id, title, storyline, imagePath, genre, rating, subtitle },
-      isLoaded,
+      status,
     } = this.state;
 
-    if (!isLoaded) {
+    if (status === 'loading') {
       return <Loading />;
     }
 
@@ -77,7 +76,8 @@ MovieDetails.propTypes = {
     imagePath: PropTypes.string,
     genre: PropTypes.string,
   }),
-  isLoaded: PropTypes.bool,
+  status: PropTypes.string,
+  isMounted: PropTypes.bool,
 }.isRequired;
 
 export default MovieDetails;

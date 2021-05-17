@@ -10,31 +10,26 @@ class MovieList extends Component {
 
     this.state = {
       movies: [],
-      isLoaded: false,
+      status: 'loading',
     };
-  }
-
-  getMovies = async () => {
-    const response = await movieAPI.getMovies();
-    return response;
   }
 
   updateState = (response) => {
     this.setState({
       movies: response,
-      isLoaded: true,
+      status: '',
     });
   }
 
   componentDidMount = async () => {
-    const response = await this.getMovies();
+    const response = await movieAPI.getMovies();
     this.updateState(response);
   }
 
   render() {
-    const { movies, isLoaded } = this.state;
+    const { movies, status } = this.state;
 
-    if (!isLoaded) {
+    if (status === 'loading') {
       return <Loading />;
     }
 
